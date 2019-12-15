@@ -22,8 +22,6 @@ class AccountsController extends Controller
         $id = Auth::user()->id;
         
         $myaccount = Accounts::find($id);
-        
-        //dd($myaccount);
 
         return view('/myaccount', [
                 'myaccount' => $myaccount
@@ -35,8 +33,10 @@ class AccountsController extends Controller
         return view('/create_account');
     }
 
-    public function createAccount(Request $request)
+    public function changePassword(Request $request)
     {
-        dd($request);
+        $validatePassword = $request->validate([
+            'password' => ['required','bail']
+        ]);
     }
 }

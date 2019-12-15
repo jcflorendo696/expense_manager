@@ -14,13 +14,14 @@
 
 Auth::routes();
 
+/* Homepage */
 Route::get('/', 'HomeController@index');
 
 
+/* Admin Dashboard */
 Route::get('/accounts', 'AccountsController@index')->middleware('auth');
-
-Route::get('/myaccount', 'AccountsController@myaccount')->middleware('auth');
-
 Route::get('/create_user', 'AccountsController@viewcreateaccount')->middleware('auth');
 
-Route::post('/create_user', 'AccountsController@createaccount');
+/* Member Dashboard */
+Route::get('/myaccount', 'AccountsController@myaccount')->middleware('auth');
+Route::post('/myaccount', 'AccountsController@changePassword')->middleware('auth'); //change password on same page.
