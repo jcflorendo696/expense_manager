@@ -20,25 +20,25 @@
 
                     <div class="col-md-6 offset-md-3">
                         <form action="" method="post">
-
+                            {{ csrf_field() }}
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control form-control-sm" name="" id="name">
+                                <input type="text" class="form-control form-control-sm" name="name" id="name">
                             </div>
 
                             <div class="form-group">
                                 <label for="name">Email</label>
-                                <input type="email" class="form-control form-control-sm" name="" id="email">
+                                <input type="email" class="form-control form-control-sm" name="email" id="email">
                             </div>
 
                             <div class="form-group">
                                 <label for="name">Password</label>
-                                <input type="password" class="form-control form-control-sm" name="" id="password">
+                                <input type="password" class="form-control form-control-sm" name="password" id="password">
                             </div>
 
                             <div class="form-group">
                                 <label for="name">Role</label>
-                                <select name="" id="" class="form-control form-control-sm">
+                                <select name="role" id="role" class="form-control form-control-sm">
                                     <option value="admin">Administrator</option>
                                     <option value="member">Member</option>
                                 </select>

@@ -21,6 +21,8 @@ Route::get('/', 'HomeController@index');
 /* Admin Dashboard */
 Route::get('/accounts', 'AccountsController@index')->middleware('auth');
 Route::get('/create_user', 'AccountsController@viewcreateaccount')->middleware('auth');
+Route::post('/create_user','AccountsController@createaccount')->middleware('auth');;
+Route::post('/accounts','AccountsController@deleteaccount')->middleware('auth');
 
 /* Member Dashboard */
 Route::get('/myaccount', 'AccountsController@myaccount')->middleware('auth');

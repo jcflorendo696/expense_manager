@@ -43,8 +43,11 @@
                             </td>
 
                             <td>
-                                <button class="btn btn-info btn-sm" title="Edit User"><i class="fas fa-user-edit"></i></button>
-                                <button class="btn btn-danger btn-sm" title="Delete User"><i class="fas fa-trash-alt"></i></button>
+                                <form action="/accounts" method="post">
+                                    {{ csrf_field() }}
+                                    <button class="btn btn-info btn-sm" title="Edit User" name="btnEditUser"><i class="fas fa-user-edit"></i></button>
+                                    <button class="btn btn-danger btn-sm" title="Delete User" name="btnDelete" value="{{ $accounts->id }}"><i class="fas fa-trash-alt"></i></button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

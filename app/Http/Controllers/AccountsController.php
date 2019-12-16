@@ -35,6 +35,38 @@ class AccountsController extends Controller
         return view('/create_account');
     }
 
+    public function createAccount(Request $request)
+    {
+        $validateNewUser = $request->validate([
+            'name'      => ['required'],
+            'email'     => ['required'],
+            'password'  => ['required'],
+            'role'      => ['required']
+        ]);
+
+        DB::table('users')->insert(
+            [
+                'name'      => $request->name, 
+                'email'     => $request->email,
+                'password'  => $request->password,
+                'role'      => $request->role
+            ]
+        );
+
+        return redirect('/accounts');
+    }
+
+    public function deleteAccount(Request $request)
+    {
+        DB::table('users')->where('id','=', $request->btnDelete)->delete();
+        return redirect('/accounts');
+    }
+
+    public function updateAccount(Request $request)
+    {
+        
+    }
+
     public function changePassword(Request $request)
     {
         $validatePassword = $request->validate([
@@ -47,9 +79,11 @@ class AccountsController extends Controller
                         ->update(['password'=> Hash::make($request->password)]);
         
         Auth::logout();
-        
-        return redirect('/',
-            [ "message" => "Password successfully changed. Please login again."
+
+        $notif = $request->session()->flash('status','Password changed successfully.');
+
+        return redirect('/', [ 
+                "message" => $notif
         ]);
     }
 }
