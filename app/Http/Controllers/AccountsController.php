@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Accounts;
 use Auth;
+use DB;
+use Illuminate\Support\Facades\Hash;
 
 class AccountsController extends Controller
 {
@@ -37,6 +39,17 @@ class AccountsController extends Controller
     {
         $validatePassword = $request->validate([
             'password' => ['required','bail']
+        ]);
+        
+        
+        $affected = DB::table('users')
+                        ->where('id', Auth::user()->id)
+                        ->update(['password'=> Hash::make($request->password)]);
+        
+        Auth::logout();
+        
+        return redirect('/',
+            [ "message" => "Password successfully changed. Please login again."
         ]);
     }
 }
