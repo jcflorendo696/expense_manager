@@ -30,7 +30,7 @@ class AccountsController extends Controller
             ]);
     }
 
-    public function viewCreateAccount()
+    public function showCreateAccount()
     {
         return view('/create_account');
     }
@@ -39,8 +39,8 @@ class AccountsController extends Controller
     {
         $validateNewUser = $request->validate([
             'name'      => ['required'],
-            'email'     => ['required'],
-            'password'  => ['required'],
+            'email'     => ['required', 'unique:users', 'email'],
+            'password'  => ['required','string'],
             'role'      => ['required']
         ]);
 
@@ -48,8 +48,10 @@ class AccountsController extends Controller
             [
                 'name'      => $request->name, 
                 'email'     => $request->email,
-                'password'  => $request->password,
-                'role'      => $request->role
+                'password'  => Hash::make($request->password),
+                'role'      => $request->role,
+                'created_at'=> date("Y-m-d H:i:s"),
+                'updated_at'=> date("Y-m-d H:i:s"),
             ]
         );
 
@@ -62,11 +64,28 @@ class AccountsController extends Controller
         return redirect('/accounts');
     }
 
-    public function updateAccount(Request $request)
+    public function showUpdateAccountForm(Request $request)
     {
-        
+        $user = Accounts::find($request->btnEditUser);
+
+        return view('/edit_account', ['user' => $user]);
     }
 
+    public function updateAccount(Request $request)
+    {
+        // $validateNewUser = $request->validate([
+        //     'name'      => ['required'],
+        //     'email'     => ['required', 'unique:users', 'email'],
+        //     'password'  => ['required','string'],
+        //     'role'      => ['required']
+        // ]);
+        // dd($request);
+        // return redirect('/accounts');
+    }
+
+    /* ----------------------------------------------------------
+    *   Members Dashboard 
+    * ---------------------------------------------------------*/
     public function changePassword(Request $request)
     {
         $validatePassword = $request->validate([
