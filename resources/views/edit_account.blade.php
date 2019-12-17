@@ -24,6 +24,7 @@
                             <div class="form-group">
                                 <label for="name">Name</label>
                                 <input type="text" class="form-control form-control-sm" name="name" id="name" value="{{ $user->name }}">
+                                <input type="hidden" name="id" value="{{ $user->id }}">
                             </div>
 
                             <div class="form-group">

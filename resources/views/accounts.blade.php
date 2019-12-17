@@ -45,7 +45,7 @@
                             <td>
                             <form action="/edit_user" method="post" style="display: inline;">
                                 {{ csrf_field() }}
-                                <button class="btn btn-info btn-sm" title="Edit User" name="btnEditUser" value="{{ $accounts->id }}"><i class="fas fa-user-edit"></i> Edit User</button>
+                                <button class="btn btn-info btn-sm" title="Edit User" name="id" value="{{ $accounts->id }}"><i class="fas fa-user-edit"></i> Edit User</button>
                             </form>                        
                             <form action="/accounts" method="post" style="display: inline;">
                                 {{ csrf_field() }}

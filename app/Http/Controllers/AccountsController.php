@@ -66,7 +66,7 @@ class AccountsController extends Controller
 
     public function showUpdateAccountForm(Request $request)
     {
-        $user = Accounts::find($request->btnEditUser);
+        $user = Accounts::find($request->id);
 
         return view('/edit_account', ['user' => $user]);
     }
@@ -79,8 +79,28 @@ class AccountsController extends Controller
         //     'password'  => ['required','string'],
         //     'role'      => ['required']
         // ]);
-        // dd($request);
-        // return redirect('/accounts');
+        //dd($request);
+        
+        if( isset($request->password) )
+        {
+            $affected = DB::table('users')->where('id', $request->id)
+                            ->update([
+                                'name'      => $request->name,
+                                'email'     => $request->email,
+                                'password'  => $request->password,
+                                'role'      => $request->role
+                            ]);
+        }else{
+            $affected = DB::table('users')->where('id', $request->id)
+                            ->update([
+                                'name'      => $request->name,
+                                'email'     => $request->email,
+                                'role'      => $request->role
+                            ]);
+        }
+
+
+        return redirect('/accounts');
     }
 
     /* ----------------------------------------------------------
