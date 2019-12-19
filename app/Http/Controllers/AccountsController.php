@@ -80,25 +80,18 @@ class AccountsController extends Controller
         //     'role'      => ['required']
         // ]);
         //dd($request);
-        
-        if( isset($request->password) )
-        {
-            $affected = DB::table('users')->where('id', $request->id)
-                            ->update([
-                                'name'      => $request->name,
-                                'email'     => $request->email,
-                                'password'  => $request->password,
-                                'role'      => $request->role
-                            ]);
-        }else{
-            $affected = DB::table('users')->where('id', $request->id)
-                            ->update([
-                                'name'      => $request->name,
-                                'email'     => $request->email,
-                                'role'      => $request->role
-                            ]);
-        }
 
+        $user = array(
+                'name'  => $request->name,
+                'email' => $request->email,
+                'role'  => $request->role
+            );
+
+        isset($request->password) ? array_push($user, 'password', $request->password ) : null;
+        
+        $affected = DB::table('users')
+                        ->where('id', $request->id)
+                        ->update($user);
 
         return redirect('/accounts');
     }
